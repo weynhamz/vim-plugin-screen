@@ -959,8 +959,8 @@ function s:screenTmux.newWindow(focus) dict " {{{
 endfunction " }}}
 
 function s:screenTmux.openRegion(cmd) dict " {{{
-  let orient = s:orientation == 'vertical' ? '-h ' : ''
   let focus = g:ScreenShellInitialFocus == 'shell' ? '' : self.activePane()
+  let orient = s:orientation == 'vertical' ? '-h ' : ''
 
   let result = self.exec('split ' .  orient . '-l ' . s:GetSize())
   if v:shell_error | return result | endif
@@ -971,7 +971,7 @@ function s:screenTmux.openRegion(cmd) dict " {{{
     let result = self.focusPane(focus)
   endif
 
-  if !v:shell_error && a:cmd != ''
+  if !empty(a:cmd)
     let result = self.send(a:cmd)
     if v:shell_error | return result | endif
   endif
